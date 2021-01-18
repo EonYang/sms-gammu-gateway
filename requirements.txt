@@ -2,4 +2,5 @@ python-gammu
 flask
 flask-restful
 Flask-HTTPAuth
-pyopenssl
+# pyopenssl
+# cryptography==2.8

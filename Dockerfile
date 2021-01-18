@@ -10,7 +10,6 @@ RUN mkdir $BASE_PATH
 WORKDIR $BASE_PATH
 ADD requirements.txt .
 ADD gammu.config .
-ADD credentials.txt .
 ADD support.py .
 
 #RUN pip install -r requirements.txt
