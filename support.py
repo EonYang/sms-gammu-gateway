@@ -1,14 +1,13 @@
 import sys
-
+import os
 import gammu
 
 
-def load_user_data(filename='credentials.txt'):
-    users = {}
-    with open(filename) as credentials:
-        for line in credentials:
-            username, password = line.partition(":")[::2]
-            users[username.strip()] = password.strip()
+def load_user_data():
+    users = {
+        'username': os.environ.get('USER_ID'),
+        'password': os.environ.get('USER_PASSWORD')
+    }
     return users
 
 

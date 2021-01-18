@@ -1,0 +1,10 @@
+version: "3"
+services:
+  sms-gammu-gateway:
+    container_name: sms-gammu-gateway
+    restart: always
+    image: yy2473/gammu-sms-gateway
+    ports:
+      - "5000:5000"
+    devices:
+      - /dev/ttyUSB0:/dev/mobile
