@@ -3,8 +3,11 @@ services:
   sms-gammu-gateway:
     container_name: sms-gammu-gateway
     restart: always
-    image: yy2473/gammu-sms-gateway:arm
+    image: yy2473/gammu-sms-gateway:arm-latest
     ports:
       - "5000:5000"
+    environment:
+      GMAIL: yangthere@gmail.com
+      GMAIL_PASSWORD:
     devices:
       - /dev/ttyUSB0:/dev/mobile

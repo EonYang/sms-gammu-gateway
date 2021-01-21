@@ -1,3 +1,4 @@
+import traceback
 import os
 
 from flask import Flask
@@ -61,20 +62,28 @@ class Getsms(Resource):
     # @auth.login_required
     def get(self):
 
-        smss = []
-        entries = getAndDeleteAllSMS(self.machine)
+        try:
 
-        for sms in entries:
-            sms_dict = {}
-            sms_dict["Date"] = str(sms[0]['DateTime'])
-            sms_dict["Number"] = str(sms[0]['Number'])
-            sms_dict["State"] = str(sms[0]['State'])
-            sms_dict["Text"] = ''.join(
-                [msg['Text'] for msg in sms]
-            )
-            smss.append(sms_dict)
+            smss = []
+            entries = getAndDeleteAllSMS(self.machine)
 
-        return smss
+            for sms in entries:
+                sms_dict = {}
+                sms_dict["Date"] = str(sms[0]['DateTime'])
+                sms_dict["Number"] = str(sms[0]['Number'])
+                sms_dict["State"] = str(sms[0]['State'])
+                sms_dict["Text"] = ''.join(
+                    [msg['Text'] for msg in sms]
+                )
+                smss.append(sms_dict)
+
+            return smss
+        except Exception as e:
+            traceback_list = traceback.format_tb(e.__traceback__)
+            return {
+                'error': str(e),
+                'class': e.__class__.__name__,
+                'traceback': traceback_list}
 
 
 if user_data['username'] is not None:

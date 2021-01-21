@@ -19,5 +19,6 @@ RUN apk add --no-cache --virtual .build-deps libffi-dev openssl-dev gcc musl-dev
      && apk del .build-deps libffi-dev openssl-dev gcc musl-dev
 
 ADD run.py .
+EXPOSE 5000
 
 CMD [ "python", "./run.py" ]
