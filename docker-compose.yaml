@@ -12,18 +12,18 @@ services:
     devices:
       - /dev/ttyUSB0:/dev/mobile
 
-  server:
-    image: yy2473/mail_me_my_sms:arm-latest
-    command: "python ./mail_me_my_sms/server.py"
-    container_name: mail_my_sms_server
-    restart: always
-    environment:
-      SENDGRID_API_KEY: ${SENDGRID_API_KEY}
-      REDIS_HOST: redis
-    devices:
-      - /dev/ttyUSB0:/dev/mobile
-    ports:
-      - "4000:4000"
+  # server:
+  #   image: yy2473/mail_me_my_sms:arm-latest
+  #   command: "python ./mail_me_my_sms/server.py"
+  #   container_name: mail_my_sms_server
+  #   restart: always
+  #   environment:
+  #     SENDGRID_API_KEY: ${SENDGRID_API_KEY}
+  #     REDIS_HOST: redis
+  #   devices:
+  #     - /dev/ttyUSB0:/dev/mobile
+  #   ports:
+  #     - "4000:4000"
 
 networks:
   default:
