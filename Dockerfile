@@ -5,20 +5,12 @@ RUN apk update
 RUN apk add --no-cache pkgconfig gammu=1.39.0-r2 gammu-libs=1.39.0-r2  gammu-dev=1.39.0-r2
 RUN mkdir ssl
 
-ENV BASE_PATH /sms-gw
-RUN mkdir $BASE_PATH
-WORKDIR $BASE_PATH
-ADD requirements.txt .
-ADD gammu.config .
-ADD support.py .
+WORKDIR /app
 
-#RUN pip install -r requirements.txt
-
+COPY requirements.txt ./
 RUN apk add --no-cache --virtual .build-deps libffi-dev openssl-dev gcc musl-dev \
      && pip install -r requirements.txt \
      && apk del .build-deps libffi-dev openssl-dev gcc musl-dev
 
-ADD run.py .
-EXPOSE 5000
-
-CMD [ "python", "./run.py" ]
+COPY ./ ./
+RUN pip install -e .

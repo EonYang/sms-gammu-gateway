@@ -11,7 +11,7 @@ def load_user_data():
     return users
 
 
-def init_state_machine(pin, filename='gammu.config'):
+def init_state_machine(pin=None, filename='gammu.config'):
     sm = gammu.StateMachine()
     sm.ReadConfig(Filename=filename)
     sm.Init()

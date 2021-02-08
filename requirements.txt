@@ -1,6 +1,6 @@
 python-gammu
-flask
-flask-restful
-Flask-HTTPAuth
-# pyopenssl
-# cryptography==2.8
+sendgrid==6.5.0
+pydantic
+redis
+fastapi
+uvicorn
