@@ -16,6 +16,7 @@ from mail_me_my_sms.redis_helper import RedisDict
 inbox = RedisDict('sms:inbox')
 sent = RedisDict('sms:sent')
 spam = RedisDict('sms:spam')
+print('init gammu')
 machine = init_state_machine()
 
 
@@ -97,6 +98,7 @@ def get_to_send():
 
 
 def work():
+    print('start working')
     count = 0
     while True:
         try:
