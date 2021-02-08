@@ -1,0 +1,7 @@
+sendgrid.env
+*.egg-info
+__pycache__
+.python-version
+.vscode
+.pytest_cache
+play.py
