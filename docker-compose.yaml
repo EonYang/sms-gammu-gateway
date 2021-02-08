@@ -11,8 +11,6 @@ services:
       REDIS_HOST: redis
     devices:
       - /dev/ttyUSB0:/dev/mobile
-    networks:
-      - pi-redis
 
   server:
     image: yy2473/mail_me_my_sms:arm-latest
@@ -26,5 +24,8 @@ services:
       - /dev/ttyUSB0:/dev/mobile
     ports:
       - "4000:4000"
-    networks:
-      - pi-redis
+
+networks:
+  default:
+    external:
+      name: pi-compose
