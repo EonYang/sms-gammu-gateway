@@ -63,6 +63,12 @@ def sms_to_html(sms: SMS):
     '''
 
 
+def move_from_A_to_B(k: str, A: RedisDict, B: RedisDict):
+    sms = A.get(k)
+    B.set(k, sms)
+    A.remove(k)
+
+
 def move_from_inbox_to_sent(k: str):
     sms = inbox.get(k)
     sent.set(k, sms)

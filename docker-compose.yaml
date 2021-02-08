@@ -1,25 +1,30 @@
 version: "3"
 
-x-shared: &shared
-  build:
-    context: .
-    dockerfile: Dockerfile
-  restart: always
-  image: yy2473/mail_my_sms:arm-latest
-  environment:
-    SENDGRID_API_KEY: ${SENDGRID_API_KEY}
-  devices:
-    - /dev/ttyUSB0:/dev/mobile
-
 services:
   worker:
-    <<: *shared
+    image: yy2473/mail_me_my_sms:arm-latest
     container_name: mail_my_sms_worker
     command: "python ./mail_me_my_sms/main.py"
+    restart: always
+    environment:
+      SENDGRID_API_KEY: ${SENDGRID_API_KEY}
+      REDIS_HOST: redis
+    devices:
+      - /dev/ttyUSB0:/dev/mobile
+    networks:
+      pi-redis:
 
   server:
-    <<: *shared
+    image: yy2473/mail_me_my_sms:arm-latest
+    command: "python ./mail_me_my_sms/server.py"
     container_name: mail_my_sms_server
+    restart: always
+    environment:
+      SENDGRID_API_KEY: ${SENDGRID_API_KEY}
+      REDIS_HOST: redis
+    devices:
+      - /dev/ttyUSB0:/dev/mobile
     ports:
       - "4000:4000"
-    command: "python ./mail_me_my_sms/server.py"
+    networks:
+      pi-redis:
