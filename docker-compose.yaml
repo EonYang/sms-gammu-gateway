@@ -12,7 +12,7 @@ services:
     devices:
       - /dev/ttyUSB0:/dev/mobile
     networks:
-      pi-redis:
+      - pi-redis
 
   server:
     image: yy2473/mail_me_my_sms:arm-latest
@@ -27,4 +27,4 @@ services:
     ports:
       - "4000:4000"
     networks:
-      pi-redis:
+      - pi-redis
