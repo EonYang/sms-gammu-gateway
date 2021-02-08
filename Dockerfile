@@ -14,3 +14,4 @@ RUN apk add --no-cache --virtual .build-deps libffi-dev openssl-dev gcc musl-dev
 
 COPY ./ ./
 RUN pip install -e .
+ENTRYPOINT [ "python", "-m", "mail_me_my_sms.main" ]

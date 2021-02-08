@@ -4,7 +4,6 @@ services:
   worker:
     image: yy2473/mail_me_my_sms:arm-latest
     container_name: mail_my_sms_worker
-    command: "python ./mail_me_my_sms/main.py"
     restart: always
     environment:
       SENDGRID_API_KEY: ${SENDGRID_API_KEY}
