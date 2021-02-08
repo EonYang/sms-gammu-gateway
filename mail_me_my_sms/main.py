@@ -1,7 +1,6 @@
 
 from mail_me_my_sms.config import CONF
 import re
-from pprint import pprint
 from mail_me_my_sms.email_utils import send_to_me
 from mail_me_my_sms.model import SMS
 import hashlib
@@ -13,10 +12,13 @@ from mail_me_my_sms.gammu_utils import (
 from time import sleep
 from mail_me_my_sms.redis_helper import RedisDict
 
+import logging
+
+lg = logging.Logger(__name__, logging.INFO)
 inbox = RedisDict('sms:inbox')
 sent = RedisDict('sms:sent')
 spam = RedisDict('sms:spam')
-print('init gammu')
+lg.info('init gammu')
 machine = init_state_machine()
 
 
@@ -98,16 +100,16 @@ def get_to_send():
 
 
 def work():
-    print('start working')
+    lg.info('start working')
     count = 0
     while True:
         try:
             smss = get_all_smss()
             count += 1
             if len(smss) == 0:
-                print(count, end='\r')
+                lg.info(count)
             else:
-                print(count)
+                lg.info(count)
                 save_to_inbox(smss)
 
             to_send, sent_keys = get_to_send()
@@ -118,10 +120,11 @@ def work():
 
         except Exception as e:
             traceback_list = traceback.format_tb(e.__traceback__)
-            pprint({
-                'error': str(e),
-                'class': e.__class__.__name__,
-                'traceback': traceback_list})
+            lg.error(f"""
+                'error': {str(e)},
+                'class': {e.__class__.__name__},
+                'traceback': {traceback_list}
+                """)
 
         sleep(CONF.SMS_CHECK_INTERVAL)
 
