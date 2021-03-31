@@ -13,8 +13,9 @@ from time import sleep
 from mail_me_my_sms.redis_helper import RedisDict
 
 import logging
-
-lg = logging.Logger(__name__, logging.INFO)
+logging.basicConfig()
+lg = logging.getLogger()
+lg.setLevel(logging.DEBUG)
 inbox = RedisDict('sms:inbox')
 sent = RedisDict('sms:sent')
 spam = RedisDict('sms:spam')
@@ -103,13 +104,12 @@ def work():
     lg.info('start working')
     count = 0
     while True:
+        lg.info(f'signal: {machine.GetSignalQuality()}')
         try:
             smss = get_all_smss()
             count += 1
-            if len(smss) == 0:
-                lg.info(count)
-            else:
-                lg.info(count)
+            if len(smss) != 0:
+                lg.info(len(smss))
                 save_to_inbox(smss)
 
             to_send, sent_keys = get_to_send()
